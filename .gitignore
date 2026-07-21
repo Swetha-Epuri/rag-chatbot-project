@@ -9,3 +9,4 @@ vectorstore/
 .DS_Store
 data/pdfs/*
 !data/pdfs/.gitkeep
+docs/

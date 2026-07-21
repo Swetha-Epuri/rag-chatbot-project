@@ -3,6 +3,7 @@ from preprocess.cleaner import TextCleaner
 from chunking.chunker import DocumentChunker
 from embeddings.embedding_service import EmbeddingService
 from vectorstore.faiss_store import FAISSstore
+from retrieval.retriever import Retriever
 from config import PDF_DIR
 
 
@@ -46,5 +47,30 @@ def main():
     db = vector_store.create(chunks)
 
     print("\nFAISS Index Created Successfully!")
+
+
+    retriever = Retriever(embedding_model)
+
+    query = input("\nAsk a question: ")
+
+    results = retriever.search(query)
+
+
+
+
+    print("\nTop Retrieved Chunks:\n")
+
+    for i,doc in enumerate(results, start=1):
+
+        print(f"\n\nResult {i}\n")
+
+        print("Source :", doc.metadata["source"])
+
+        print("Page :",doc.metadata["page"])
+
+        print()
+
+        print(doc.page_content[:400])
+        
 if __name__=='__main__':
     main()

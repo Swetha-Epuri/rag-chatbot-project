@@ -1,6 +1,8 @@
 from loaders.pdf_loader import PDFLoader
 from preprocess.cleaner import TextCleaner
 from chunking.chunker import DocumentChunker
+from embeddings.embedding_service import EmbeddingService
+from vectorstore.faiss_store import FAISSstore
 from config import PDF_DIR
 
 
@@ -33,23 +35,16 @@ def main():
     print(f"\nCreated {len(chunks)} chunks\n")
     
     
-    for i, chunk in enumerate(chunks[:5], start=1):
-        print(f"\nChunk {i}\n")
 
-        print("Source :", chunk.metadata["source"])
 
-        print(" Page :", chunk.metadata["page"])
+    embedding_service = EmbeddingService()
 
-        print()
+    embedding_model = embedding_service.get_embeddings()
 
-        print(chunk.page_content[:400])
+    vector_store = FAISSstore(embedding_model)
 
-    print("\nChunk Statistics\n")
+    db = vector_store.create(chunks)
 
-    for chunk in chunks[:5]:
-
-        print(len(chunk.page_content))
-
-    print(chunks[0].metadata)
+    print("\nFAISS Index Created Successfully!")
 if __name__=='__main__':
     main()

@@ -7,4 +7,5 @@ vectorstore/
 .idea/
 *.log
 .DS_Store
-*.pdf
+data/pdfs/*
+!data/pdfs/.gitkeep

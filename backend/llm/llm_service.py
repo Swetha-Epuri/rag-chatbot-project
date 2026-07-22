@@ -5,6 +5,8 @@ class LLMService:
     def __init__(self):
         self.llm = ChatOllama(model="llama3.2:3b", temperature=0)
 
-    def get_llm(self):
+    def generate(self,prompt):
+        
+        response = self.llm.invoke(prompt)
 
-        return self.llm
+        return response.content

@@ -4,6 +4,8 @@ from chunking.chunker import DocumentChunker
 from embeddings.embedding_service import EmbeddingService
 from vectorstore.faiss_store import FAISSstore
 from retrieval.retriever import Retriever
+from prompts.promt_builder import PromptBuilder
+from llm.llm_service import LLMService
 from config import PDF_DIR
 
 
@@ -49,6 +51,7 @@ def main():
     print("\nFAISS Index Created Successfully!")
 
 
+
     retriever = Retriever(embedding_model)
 
     query = input("\nAsk a question: ")
@@ -56,21 +59,23 @@ def main():
     results = retriever.search(query)
 
 
+    context = "\n\n".join([doc.page_content for doc in results])
 
+    prompt = PromptBuilder.build(context,query)
 
-    print("\nTop Retrieved Chunks:\n")
+    llm = LLMService().get_llm()
 
-    for i,doc in enumerate(results, start=1):
+    response = llm.invoke(prompt)
 
-        print(f"\n\nResult {i}\n")
+    print("\nAnswer\n")
 
-        print("Source :", doc.metadata["source"])
+    print(response.content)
 
-        print("Page :",doc.metadata["page"])
+    print("\nSources\n")
 
-        print()
+    for doc in results:
 
-        print(doc.page_content[:400])
-        
+        print( f"{doc.metadata["source"]}" f"(Page {doc.metadata["page"]+1})")
+
 if __name__=='__main__':
     main()

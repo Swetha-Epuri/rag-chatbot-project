@@ -1,8 +1,12 @@
 from backend.services.chat_service import ChatService
+from backend.core.container import Container
+
 
 def main():
 
-    chat = ChatService()
+    container = Container()
+
+    chat = ChatService(container.retriever,container.llm)
 
     while True:
         

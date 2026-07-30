@@ -13,6 +13,7 @@ class PDFLoader:
 
         pdf_files = self.pdf_directory.glob("*.pdf")
 
+
         for pdf in pdf_files:
 
             try:

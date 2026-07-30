@@ -1,5 +1,5 @@
 from langchain_community.vectorstores import FAISS
-from backend.config import VECTORISE_DIR,TOP_K_RESULTS
+from backend.config.settings import VECTORISE_DIR,TOP_K_RESULTS
 
 class Retriever:
 

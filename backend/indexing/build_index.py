@@ -3,7 +3,7 @@ from backend.preprocess.cleaner import TextCleaner
 from backend.chunking.chunker import DocumentChunker
 from backend.embeddings.embedding_service import EmbeddingService
 from backend.vectorstore.faiss_store import FAISSstore
-from backend.config import PDF_DIR
+from backend.config.settings import PDF_DIR
 
 
 def build_index():
@@ -11,6 +11,7 @@ def build_index():
     loader = PDFLoader(PDF_DIR)
 
     documents = loader.load_documents()
+
 
     print(f"\nLoaded {len(documents)} pages\n")
 

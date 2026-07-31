@@ -4,6 +4,7 @@ from backend.chunking.chunker import DocumentChunker
 from backend.embeddings.embedding_service import EmbeddingService
 from backend.vectorstore.faiss_store import FAISSstore
 from backend.config.settings import PDF_DIR
+from backend.logging.logger import logger
 
 
 def build_index():
@@ -12,8 +13,7 @@ def build_index():
 
     documents = loader.load_documents()
 
-
-    print(f"\nLoaded {len(documents)} pages\n")
+    logger.info(f"\nLoaded {len(documents)} pages\n")
 
 
 
@@ -54,4 +54,12 @@ def build_index():
 
 
 if __name__=='__main__':
-    build_index()
+    try:
+        
+        build_index()
+    
+    except Exception:
+        
+        logger.eception("Index building failed.")
+
+        raise

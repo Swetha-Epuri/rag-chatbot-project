@@ -1,6 +1,6 @@
 from backend.services.chat_service import ChatService
 from backend.core.container import Container
-
+from backend.logging.logger import logger
 
 def main():
 
@@ -14,13 +14,19 @@ def main():
 
         if question.lower() == "exit":
             break
-        
-        answer, sources = chat.ask(question)
+        try:
 
-        print("\nAnswer\n")
+            answer, sources = chat.ask(question)
     
-        print(answer)
+            print("\nAnswer\n")
+            print(answer)
+
+            logger.info("Response generated succesfully.")
         
+        except Exception as e:
+
+            print(f"\nError: {e}") 
+
         for source in sources:
 
             print(source)

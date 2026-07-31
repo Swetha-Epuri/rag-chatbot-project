@@ -1,5 +1,6 @@
 from backend.prompts.promt_builder import PromptBuilder
-
+from backend.exceptions.custom_exceptions import LLMServiceError
+from backend.logging.logger import logger
 
 
 class ChatService:
@@ -18,8 +19,16 @@ class ChatService:
 
         prompt = PromptBuilder.build(context,question)
 
-        response = self.llm.generate(prompt)
+        try:
+            
+            response = self.llm.generate(prompt)
 
+        except Exception as e:
+            
+            logger.exception("LLM generation failed.")
+
+            raise LLMServiceError(str(e))
+        
         sources = []
 
         for doc in results:

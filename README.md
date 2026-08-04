@@ -1,6 +1,6 @@
 # RAG Chatbot
 
-An Retrieval-Augmented Generation Chatbot built using FastAPI, LangChain, FAISS, and OpenAI
+An Retrieval-Augmented Generation Chatbot built using FastAPI, LangChain and FAISS
 
 ## Features
 - Muti-Document support

@@ -12,3 +12,10 @@ MODEL_NAME = "llama3.2:3b"
 
 EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
 
+DOCUMENT_STORE_PATH = (PROJECT_ROOT
+                       / "vectorstore"
+                       / "documents.json")
+
+RETRIEVAL_CANDIDATES = 20
+
+FINAL_TOP_K = 5

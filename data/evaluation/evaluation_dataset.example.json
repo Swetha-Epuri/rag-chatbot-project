@@ -1,0 +1,12 @@
+[
+    {
+        "question": "What is machine learning",
+        "relevant_sources":[
+            {
+                "filename": "example_document.pdf",
+                "page": 1
+            }
+        ],
+        "expected_answer": "Machine learning is a field of artificial intelligence that learns patterns from data"
+    }
+]

@@ -1,0 +1,23 @@
+from unittest.mock import MagicMock, patch
+from langchain_core.documents import Document
+from backend.services.reranker_service import (RerankerService)
+
+@patch("backend.services.reranker_service.CrossEncoder")
+def test_reranker(mock_cross_encoder):
+
+    model = MagicMock()
+
+    model.predict.return_value = [0.2,0.9]
+
+    service = RerankerService()
+
+    documents = [Document(page_content = "Document A"),
+                 Document(page_content = "Document B")]
+
+    results = service.rerank("test question",documents,top_k=2)
+
+    assert len(results)==2
+
+    assert results[0][0].page_content == ("Document B")
+
+    assert results[0][1] == 0.9

@@ -5,6 +5,8 @@ from backend.embeddings.embedding_service import EmbeddingService
 from backend.vectorstore.faiss_store import FAISSstore
 from backend.config.settings import PDF_DIR
 from backend.logging.logger import logger
+from backend.config.settings import DOCUMENT_STORE_PATH
+from backend.vectorstore.document_store import DocumentStore
 
 
 def build_index():
@@ -51,6 +53,10 @@ def build_index():
 
     print("\nFAISS Index Created Successfully!")
 
+
+    document_store = DocumentStore(DOCUMENT_STORE_PATH)
+
+    document_store.save(chunks)
 
 
 if __name__=='__main__':
